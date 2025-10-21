@@ -1,0 +1,260 @@
+import 'package:flutter/material.dart';
+import '../widgets/bottom_nav_bar.dart'; // Import BottomNavBar
+
+// ==================== PAGE 3: EVENT DETAIL ====================
+class EventDetailPage extends StatefulWidget {
+  const EventDetailPage({Key? key}) : super(key: key);
+
+  @override
+  State<EventDetailPage> createState() => _EventDetailPageState();
+}
+
+class _EventDetailPageState extends State<EventDetailPage> {
+  int selectedNavIndex = 1; // Index untuk bottom navigation
+
+  void _onNavTap(int index) {
+    // Logic navigasi menggunakan rute yang sudah didaftarkan
+    if (index == 0) {
+      Navigator.pushReplacementNamed(context, '/home'); // Pindah ke Home
+    } else if (index == 1) {
+      Navigator.pushReplacementNamed(context, '/events'); // Pindah ke Events
+    } else if (index == 2) {
+      Navigator.pushReplacementNamed(context, '/profile'); // Pindah ke Profile
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final primaryColor = const Color(0xFFf25aa6);
+    final bgColor = isDark ? const Color(0xFF221019) : const Color(0xFFf8f6f7);
+    final textColor = isDark ? const Color(0xFFf8f6f7) : const Color(0xFF221019);
+
+    return Scaffold(
+      backgroundColor: bgColor,
+      body: Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Header Image with Buttons
+                  Stack(
+                    children: [
+                      Container(
+                        height: 300,
+                        decoration: const BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800',
+                            ),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                      SafeArea(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: isDark
+                                      ? primaryColor.withOpacity(0.2)
+                                      : primaryColor.withOpacity(0.1),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.arrow_back,
+                                    color: isDark ? Colors.white : textColor,
+                                  ),
+                                  onPressed: () {
+                                    print('Back button pressed');
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: isDark
+                                      ? primaryColor.withOpacity(0.2)
+                                      : primaryColor.withOpacity(0.1),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: IconButton(
+                                  icon: Icon(
+                                    Icons.share,
+                                    color: isDark ? Colors.white : textColor,
+                                  ),
+                                  onPressed: () {
+                                    print('Share button pressed');
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  // Event Details
+                  Padding(
+                    padding: const EdgeInsets.all(24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Indie Rock Concert',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: textColor,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_month,
+                              color: primaryColor,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 12),
+                            Text(
+                              'Saturday, July 20, 7:00 PM',
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: textColor.withOpacity(0.8),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 12),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.location_on,
+                              color: primaryColor,
+                              size: 20,
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Text(
+                                'The Roxy Theatre, Los Angeles',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  color: textColor.withOpacity(0.8),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 24),
+                        Text(
+                          'Experience the raw energy of indie rock with The Midnight Echoes and special guests. This concert promises a night of unforgettable music and vibrant atmosphere. Get your tickets now!',
+                          style: TextStyle(
+                            fontSize: 16,
+                            height: 1.6,
+                            color: textColor,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // Action Buttons
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              print('RSVP button pressed');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('RSVP Confirmed!'),
+                                  backgroundColor: Color(0xFFf25aa6),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: primaryColor,
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(28),
+                              ),
+                              elevation: 8,
+                              shadowColor: primaryColor.withOpacity(0.3),
+                            ),
+                            child: const Text(
+                              'RSVP',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: OutlinedButton(
+                            onPressed: () {
+                              print('Add to Calendar pressed');
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Added to Calendar!'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            },
+                            style: OutlinedButton.styleFrom(
+                              foregroundColor: primaryColor,
+                              backgroundColor: isDark
+                                  ? primaryColor.withOpacity(0.2)
+                                  : primaryColor.withOpacity(0.1),
+                              padding: const EdgeInsets.symmetric(vertical: 16),
+                              side: BorderSide.none,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(28),
+                              ),
+                            ),
+                            child: const Text(
+                              'Add to Calendar',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                ],
+              ),
+            ),
+          ),
+
+          // Bottom Navigation
+          BottomNavBar(
+            selectedIndex: selectedNavIndex,
+            onTap: _onNavTap,
+            // Perlu disesuaikan karena bottom nav di EventDetailPage sedikit berbeda
+            // dengan list page (opacity)
+            overrideBg: isDark
+                ? const Color(0xFF221019).withOpacity(0.5)
+                : const Color(0xFFf8f6f7),
+          ),
+        ],
+      ),
+    );
+  }
+}
