@@ -1,9 +1,5 @@
-// file: lib/screens/splash_screen.dart
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import '../services/location_service.dart';
-import 'interest_selection_screen.dart'; // Ganti jika nama file berbeda
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,72 +9,40 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final LocationService _locationService = LocationService();
   String _statusMessage = "Memuat...";
-  bool _showLocationButton = false;
 
   @override
   void initState() {
     super.initState();
-    _checkInitialPermission();
+    _requestLocationContinue();
   }
 
-  // Cek apakah izin sudah ada saat aplikasi dibuka
-  void _checkInitialPermission() async {
-    LocationPermission permission = await Geolocator.checkPermission();
-
-    if (permission == LocationPermission.whileInUse ||
-        permission == LocationPermission.always) {
-      // Izin sudah ada, langsung lanjut ke proses loading
-      _requestLocationAndContinue(isInitial: true);
-    } else {
-      // Izin belum ada atau ditolak
-      setState(() {
-        _statusMessage = "Kami perlu akses lokasi Anda.";
-        _showLocationButton = true;
-      });
-    }
-  }
-
-  // Meminta lokasi dan melanjutkan navigasi
-  void _requestLocationAndContinue({bool isInitial = false}) async {
-    setState(() {
-      _showLocationButton = false;
-      _statusMessage = isInitial
-          ? "Memperoleh lokasi..."
-          : "Meminta izin lokasi...";
-    });
-
+  void _requestLocationContinue() async {
+    print("Requesting");
     try {
-      // Fungsi ini akan meminta izin jika belum ada, atau langsung mengambil posisi
-      await _locationService.getCurrentLocation();
+      LocationPermission permission = await Geolocator.requestPermission();
 
-      // Sukses mendapatkan lokasi, navigasi ke layar berikutnya
-      await Future.delayed(
-        const Duration(milliseconds: 500),
-      ); // Simulasi splash time
-
-      if (mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => const InterestSelectionScreen(),
-          ),
-        );
+      if (permission == LocationPermission.denied) {
+        setState(() {
+          _statusMessage = "Kami perlu akses lokasi Anda.";
+        });
+      } else if (permission == LocationPermission.deniedForever) {
+        setState(() {
+          _statusMessage =
+              "Kami perlu akses lokasi Anda. Mohon ubah permission pada pengaturan.";
+        });
+      } else {
+        _continue();
       }
     } catch (e) {
-      // Gagal (misal: GPS mati, user menolak, atau ditolak permanen)
-      setState(() {
-        _statusMessage =
-            "Gagal: ${e.toString()}. \nTekan tombol untuk coba lagi.";
-        _showLocationButton = true;
-      });
+      print("Error requesting permission");
+      _continue();
     }
   }
 
-  // void _continueToInterestSelection() {
-  //   // Navigasi menggunakan Named Route yang baru
-  //   Navigator.of(context).pushReplacementNamed('/interests');
-  // }
+  void _continue() {
+    Navigator.pushReplacementNamed(context, '/interests');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,45 +60,39 @@ class _SplashScreenState extends State<SplashScreen> {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
+
               const SizedBox(height: 32),
 
-              if (!_showLocationButton)
-                const CircularProgressIndicator(color: Color(0xFFf25aa6)),
+              const CircularProgressIndicator(color: Color(0xFFf25aa6)),
 
               const SizedBox(height: 16),
+
               Text(
                 _statusMessage,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
 
-              if (_showLocationButton)
-                Column(
-                  children: [
-                    const SizedBox(height: 32),
-                    ElevatedButton(
-                      onPressed: () => _requestLocationAndContinue(),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFf25aa6),
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 40,
-                          vertical: 15,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                      ),
-                      child: const Text(
-                        'Tentukan Lokasi',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ],
+              const SizedBox(height: 32),
+
+              ElevatedButton(
+                onPressed: () => _requestLocationContinue(),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFf25aa6),
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 40,
+                    vertical: 15,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
                 ),
+                child: const Text(
+                  'Tentukan Lokasi',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ),
             ],
           ),
         ),
