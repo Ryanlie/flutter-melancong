@@ -54,7 +54,9 @@ class _SplashScreenState extends State<SplashScreen> {
       await _locationService.getCurrentLocation();
 
       // Sukses mendapatkan lokasi, navigasi ke layar berikutnya
-      await Future.delayed(const Duration(milliseconds: 500)); // Simulasi splash time
+      await Future.delayed(
+        const Duration(milliseconds: 500),
+      ); // Simulasi splash time
 
       if (mounted) {
         Navigator.of(context).pushReplacement(
@@ -66,16 +68,17 @@ class _SplashScreenState extends State<SplashScreen> {
     } catch (e) {
       // Gagal (misal: GPS mati, user menolak, atau ditolak permanen)
       setState(() {
-        _statusMessage = "Gagal: ${e.toString()}. \nTekan tombol untuk coba lagi.";
+        _statusMessage =
+            "Gagal: ${e.toString()}. \nTekan tombol untuk coba lagi.";
         _showLocationButton = true;
       });
     }
   }
 
-  void _continueToInterestSelection() {
-    // Navigasi menggunakan Named Route yang baru
-    Navigator.of(context).pushReplacementNamed('/interests');
-  }
+  // void _continueToInterestSelection() {
+  //   // Navigasi menggunakan Named Route yang baru
+  //   Navigator.of(context).pushReplacementNamed('/interests');
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -114,10 +117,21 @@ class _SplashScreenState extends State<SplashScreen> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFFf25aa6),
                         foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 40,
+                          vertical: 15,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
                       ),
-                      child: const Text('Tentukan Lokasi', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                      child: const Text(
+                        'Tentukan Lokasi',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
                   ],
                 ),

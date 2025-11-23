@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/bottom_nav_bar.dart';
-import '../widgets/event_card.dart'; // Jika event_card dibuat
+// import '../widgets/event_card.dart'; // Jika event_card dibuat
 
 // ==================== PAGE 2: EVENT LIST ====================
 class EventListPage extends StatefulWidget {
@@ -18,26 +18,30 @@ class _EventListPageState extends State<EventListPage> {
     {
       'title': 'Indie Music Fest',
       'date': 'Jul 15 · 7:00 PM',
-      'image': 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400',
+      'image':
+          'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=400',
       'category': 'Music',
     },
     // ... event data lainnya
     {
       'title': 'Food Bazaar',
       'date': 'Jul 16 · 11:00 AM',
-      'image': 'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400',
+      'image':
+          'https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=400',
       'category': 'Food',
     },
     {
       'title': 'Cosplay Convention',
       'date': 'Jul 22 · 9:00 AM',
-      'image': 'https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?w=400',
+      'image':
+          'https://images.unsplash.com/photo-1531306728370-e2ebd9d7bb99?w=400',
       'category': 'Cosplay',
     },
     {
       'title': 'Marathon',
       'date': 'Jul 23 · 6:00 AM',
-      'image': 'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400',
+      'image':
+          'https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400',
       'category': 'Running',
     },
   ];
@@ -58,14 +62,15 @@ class _EventListPageState extends State<EventListPage> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = const Color(0xFFf25aa6);
     final bgColor = isDark ? const Color(0xFF221019) : const Color(0xFFf8f6f7);
     final surfaceColor = isDark ? const Color(0xFF2d1620) : Colors.white;
-    final textColor = isDark ? const Color(0xFFf8f6f7) : const Color(0xFF221019);
+    final textColor = isDark
+        ? const Color(0xFFf8f6f7)
+        : const Color(0xFF221019);
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -75,9 +80,7 @@ class _EventListPageState extends State<EventListPage> {
             // Header
             Container(
               padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: bgColor.withOpacity(0.8),
-              ),
+              decoration: BoxDecoration(color: bgColor.withValues(alpha: 0.8)),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -135,7 +138,7 @@ class _EventListPageState extends State<EventListPage> {
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
+                            color: Colors.black.withValues(alpha: 0.05),
                             blurRadius: 8,
                             offset: const Offset(0, 2),
                           ),
@@ -186,14 +189,14 @@ class _EventListPageState extends State<EventListPage> {
                                     Icon(
                                       Icons.calendar_today,
                                       size: 16,
-                                      color: textColor.withOpacity(0.7),
+                                      color: textColor.withValues(alpha: 0.7),
                                     ),
                                     const SizedBox(width: 8),
                                     Text(
                                       'Jul 20 · 10:00 AM',
                                       style: TextStyle(
                                         fontSize: 14,
-                                        color: textColor.withOpacity(0.7),
+                                        color: textColor.withValues(alpha: 0.7),
                                       ),
                                     ),
                                   ],
@@ -218,12 +221,20 @@ class _EventListPageState extends State<EventListPage> {
                   const SizedBox(height: 16),
 
                   // Event List (Menggunakan EventCard jika sudah dibuat)
-                  ...events.map((event) => Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    // Jika EventCard sudah dibuat, panggil EventCard di sini
-                    // Contoh: EventCard(event: event, onTap: _navigateToDetail)
-                    child: _buildEventListTile(event, surfaceColor, textColor),
-                  )).toList(),
+                  ...events
+                      .map(
+                        (event) => Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          // Jika EventCard sudah dibuat, panggil EventCard di sini
+                          // Contoh: EventCard(event: event, onTap: _navigateToDetail)
+                          child: _buildEventListTile(
+                            event,
+                            surfaceColor,
+                            textColor,
+                          ),
+                        ),
+                      )
+                      .toList(),
                 ],
               ),
             ),
@@ -252,8 +263,8 @@ class _EventListPageState extends State<EventListPage> {
           color: isSelected
               ? primaryColor
               : isDark
-              ? primaryColor.withOpacity(0.2)
-              : primaryColor.withOpacity(0.1),
+              ? primaryColor.withValues(alpha: 0.2)
+              : primaryColor.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Text(
@@ -269,7 +280,11 @@ class _EventListPageState extends State<EventListPage> {
   }
 
   // Helper widget untuk list event
-  Widget _buildEventListTile(Map<String, String> event, Color surfaceColor, Color textColor) {
+  Widget _buildEventListTile(
+    Map<String, String> event,
+    Color surfaceColor,
+    Color textColor,
+  ) {
     return GestureDetector(
       onTap: _navigateToDetail,
       child: Container(
@@ -279,7 +294,7 @@ class _EventListPageState extends State<EventListPage> {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 4,
               offset: const Offset(0, 2),
             ),
@@ -316,7 +331,7 @@ class _EventListPageState extends State<EventListPage> {
                     event['date']!,
                     style: TextStyle(
                       fontSize: 14,
-                      color: textColor.withOpacity(0.7),
+                      color: textColor.withValues(alpha: 0.7),
                     ),
                   ),
                 ],

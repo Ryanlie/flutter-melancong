@@ -14,9 +14,21 @@ class _HomeScreenState extends State<HomeScreen> {
   int selectedNavIndex = 0;
 
   final List<Map<String, dynamic>> categories = [
-    {'icon': Icons.music_note, 'label': 'Music', 'color': const Color(0xFFFF6B9D)},
-    {'icon': Icons.restaurant, 'label': 'Food', 'color': const Color(0xFFFF8F5E)},
-    {'icon': Icons.sports_soccer, 'label': 'Sports', 'color': const Color(0xFF6BCB77)},
+    {
+      'icon': Icons.music_note,
+      'label': 'Music',
+      'color': const Color(0xFFFF6B9D),
+    },
+    {
+      'icon': Icons.restaurant,
+      'label': 'Food',
+      'color': const Color(0xFFFF8F5E),
+    },
+    {
+      'icon': Icons.sports_soccer,
+      'label': 'Sports',
+      'color': const Color(0xFF6BCB77),
+    },
     {'icon': Icons.palette, 'label': 'Art', 'color': const Color(0xFF9D84FF)},
     {'icon': Icons.movie, 'label': 'Movies', 'color': const Color(0xFF4D96FF)},
     {'icon': Icons.flight, 'label': 'Travel', 'color': const Color(0xFFFFB800)},
@@ -27,21 +39,24 @@ class _HomeScreenState extends State<HomeScreen> {
       'title': 'Summer Music Festival',
       'date': 'Jul 25 · 6:00 PM',
       'location': 'Beach Arena',
-      'image': 'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400',
+      'image':
+          'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400',
       'attendees': '2.5K',
     },
     {
       'title': 'Food Truck Rally',
       'date': 'Jul 28 · 12:00 PM',
       'location': 'Downtown Square',
-      'image': 'https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?w=400',
+      'image':
+          'https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?w=400',
       'attendees': '1.8K',
     },
     {
       'title': 'Art Exhibition',
       'date': 'Jul 30 · 10:00 AM',
       'location': 'Modern Gallery',
-      'image': 'https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=400',
+      'image':
+          'https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=400',
       'attendees': '950',
     },
   ];
@@ -52,7 +67,9 @@ class _HomeScreenState extends State<HomeScreen> {
     final primaryColor = const Color(0xFFf25aa6);
     final bgColor = isDark ? const Color(0xFF221019) : const Color(0xFFf8f6f7);
     final surfaceColor = isDark ? const Color(0xFF2d1620) : Colors.white;
-    final textColor = isDark ? const Color(0xFFf8f6f7) : const Color(0xFF221019);
+    final textColor = isDark
+        ? const Color(0xFFf8f6f7)
+        : const Color(0xFF221019);
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -72,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         'Hello! 👋',
                         style: TextStyle(
                           fontSize: 16,
-                          color: textColor.withOpacity(0.7),
+                          color: textColor.withValues(alpha: 0.7),
                         ),
                       ),
                       const SizedBox(height: 4),
@@ -88,11 +105,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: primaryColor.withOpacity(0.1),
+                      color: primaryColor.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(
-                      icon: Icon(Icons.notifications_outlined, color: primaryColor),
+                      icon: Icon(
+                        Icons.notifications_outlined,
+                        color: primaryColor,
+                      ),
                       onPressed: () {},
                     ),
                   ),
@@ -114,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(16),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
+                              color: Colors.black.withValues(alpha: 0.05),
                               blurRadius: 10,
                               offset: const Offset(0, 2),
                             ),
@@ -124,11 +144,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           decoration: InputDecoration(
                             hintText: 'Search events...',
                             hintStyle: TextStyle(
-                              color: textColor.withOpacity(0.5),
+                              color: textColor.withValues(alpha: 0.5),
                             ),
                             prefixIcon: Icon(
                               Icons.search,
-                              color: textColor.withOpacity(0.5),
+                              color: textColor.withValues(alpha: 0.5),
                             ),
                             border: InputBorder.none,
                             contentPadding: const EdgeInsets.symmetric(
@@ -191,7 +211,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   width: 64,
                                   height: 64,
                                   decoration: BoxDecoration(
-                                    color: (category['color'] as Color).withOpacity(0.15),
+                                    color: (category['color'] as Color)
+                                        .withValues(alpha: 0.15),
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                   child: Icon(
@@ -252,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius: BorderRadius.circular(16),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.05),
+                                  color: Colors.black.withValues(alpha: 0.05),
                                   blurRadius: 10,
                                   offset: const Offset(0, 2),
                                 ),
@@ -267,9 +288,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     Container(
                                       height: 180,
                                       decoration: BoxDecoration(
-                                        borderRadius: const BorderRadius.vertical(
-                                          top: Radius.circular(16),
-                                        ),
+                                        borderRadius:
+                                            const BorderRadius.vertical(
+                                              top: Radius.circular(16),
+                                            ),
                                         image: DecorationImage(
                                           image: NetworkImage(event['image']!),
                                           fit: BoxFit.cover,
@@ -285,8 +307,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           vertical: 6,
                                         ),
                                         decoration: BoxDecoration(
-                                          color: Colors.black.withOpacity(0.6),
-                                          borderRadius: BorderRadius.circular(20),
+                                          color: Colors.black.withValues(
+                                            alpha: 0.6,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
                                         ),
                                         child: Row(
                                           children: [
@@ -314,7 +340,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 Padding(
                                   padding: const EdgeInsets.all(16),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         event['title']!,
@@ -330,14 +357,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Icon(
                                             Icons.calendar_today,
                                             size: 16,
-                                            color: textColor.withOpacity(0.6),
+                                            color: textColor.withValues(
+                                              alpha: 0.6,
+                                            ),
                                           ),
                                           const SizedBox(width: 8),
                                           Text(
                                             event['date']!,
                                             style: TextStyle(
                                               fontSize: 14,
-                                              color: textColor.withOpacity(0.6),
+                                              color: textColor.withValues(
+                                                alpha: 0.6,
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -348,14 +379,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                           Icon(
                                             Icons.location_on,
                                             size: 16,
-                                            color: textColor.withOpacity(0.6),
+                                            color: textColor.withValues(
+                                              alpha: 0.6,
+                                            ),
                                           ),
                                           const SizedBox(width: 8),
                                           Text(
                                             event['location']!,
                                             style: TextStyle(
                                               fontSize: 14,
-                                              color: textColor.withOpacity(0.6),
+                                              color: textColor.withValues(
+                                                alpha: 0.6,
+                                              ),
                                             ),
                                           ),
                                         ],
@@ -386,13 +421,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       decoration: BoxDecoration(
         color: isDark
-            ? const Color(0xFF221019).withOpacity(0.9)
-            : const Color(0xFFf8f6f7).withOpacity(0.9),
+            ? const Color(0xFF221019).withValues(alpha: 0.9)
+            : const Color(0xFFf8f6f7).withValues(alpha: 0.9),
         border: Border(
           top: BorderSide(
             color: isDark
-                ? primaryColor.withOpacity(0.3)
-                : primaryColor.withOpacity(0.2),
+                ? primaryColor.withValues(alpha: 0.3)
+                : primaryColor.withValues(alpha: 0.2),
             width: 1,
           ),
         ),
@@ -404,8 +439,20 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildNavItem(Icons.home, 'Home', 0, primaryColor, textColor),
-              _buildNavItem(Icons.confirmation_number, 'Events', 1, primaryColor, textColor),
-              _buildNavItem(Icons.person, 'Profile', 2, primaryColor, textColor),
+              _buildNavItem(
+                Icons.confirmation_number,
+                'Events',
+                1,
+                primaryColor,
+                textColor,
+              ),
+              _buildNavItem(
+                Icons.person,
+                'Profile',
+                2,
+                primaryColor,
+                textColor,
+              ),
             ],
           ),
         ),
@@ -413,7 +460,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, int index, Color primaryColor, Color textColor) {
+  Widget _buildNavItem(
+    IconData icon,
+    String label,
+    int index,
+    Color primaryColor,
+    Color textColor,
+  ) {
     final isSelected = selectedNavIndex == index;
     return GestureDetector(
       onTap: () {
@@ -432,7 +485,7 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           Icon(
             icon,
-            color: isSelected ? primaryColor : textColor.withOpacity(0.6),
+            color: isSelected ? primaryColor : textColor.withValues(alpha: 0.6),
           ),
           const SizedBox(height: 4),
           Text(
@@ -440,7 +493,9 @@ class _HomeScreenState extends State<HomeScreen> {
             style: TextStyle(
               fontSize: 12,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-              color: isSelected ? primaryColor : textColor.withOpacity(0.6),
+              color: isSelected
+                  ? primaryColor
+                  : textColor.withValues(alpha: 0.6),
             ),
           ),
         ],

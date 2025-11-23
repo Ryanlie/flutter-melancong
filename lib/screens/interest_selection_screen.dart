@@ -7,7 +7,8 @@ class InterestSelectionScreen extends StatefulWidget {
   const InterestSelectionScreen({Key? key}) : super(key: key);
 
   @override
-  State<InterestSelectionScreen> createState() => _InterestSelectionScreenState();
+  State<InterestSelectionScreen> createState() =>
+      _InterestSelectionScreenState();
 }
 
 class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
@@ -26,7 +27,7 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
     'Fashion',
     'Movies',
     'Gaming',
-    'Books'
+    'Books',
   ];
 
   void toggleInterest(String interest) {
@@ -85,10 +86,12 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = const Color(0xFFf25aa6);
-    final textColor = isDark ? const Color(0xFFf8f6f7) : const Color(0xFF1b0d14);
+    final textColor = isDark
+        ? const Color(0xFFf8f6f7)
+        : const Color(0xFF1b0d14);
     final subtextColor = isDark
-        ? const Color(0xFFf8f6f7).withOpacity(0.7)
-        : const Color(0xFF1b0d14).withOpacity(0.7);
+        ? const Color(0xFFf8f6f7).withValues(alpha: 0.7)
+        : const Color(0xFF1b0d14).withValues(alpha: 0.7);
 
     return Scaffold(
       body: SafeArea(
@@ -107,7 +110,9 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
                       // menggunakan pushReplacementNamed dari SplashScreen.
                       // Jika Anda ingin mengizinkan kembali (misalnya ke SplashScreen),
                       // aktifkan ini: Navigator.pop(context);
-                      print('Back button pressed - Navigation not implemented here');
+                      print(
+                        'Back button pressed - Navigation not implemented here',
+                      );
                     },
                   ),
                   const Expanded(
@@ -143,10 +148,7 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
                     const SizedBox(height: 8),
                     Text(
                       'Select at least 3 interests to personalize your experience.',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: subtextColor,
-                      ),
+                      style: TextStyle(fontSize: 16, color: subtextColor),
                     ),
                     const SizedBox(height: 32),
 
@@ -154,12 +156,13 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
                     GridView.builder(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 16,
-                        mainAxisSpacing: 16,
-                        childAspectRatio: 1.5,
-                      ),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 16,
+                            mainAxisSpacing: 16,
+                            childAspectRatio: 1.5,
+                          ),
                       itemCount: allInterests.length,
                       itemBuilder: (context, index) {
                         final interest = allInterests[index];
@@ -180,14 +183,14 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
                                 color: isSelected
                                     ? primaryColor
                                     : isDark
-                                    ? primaryColor.withOpacity(0.3)
-                                    : primaryColor.withOpacity(0.2),
+                                    ? primaryColor.withValues(alpha: 0.3)
+                                    : primaryColor.withValues(alpha: 0.2),
                                 width: 1,
                               ),
                               borderRadius: BorderRadius.circular(16),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.05),
+                                  color: Colors.black.withValues(alpha: 0.05),
                                   blurRadius: 4,
                                   offset: const Offset(0, 2),
                                 ),
@@ -199,9 +202,7 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
-                                  color: isSelected
-                                      ? Colors.white
-                                      : textColor,
+                                  color: isSelected ? Colors.white : textColor,
                                 ),
                               ),
                             ),
@@ -222,16 +223,20 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
-                  onPressed: selectedInterests.length >= 3 ? _navigateToEvents : null,
+                  onPressed: selectedInterests.length >= 3
+                      ? _navigateToEvents
+                      : null,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: primaryColor,
-                    disabledBackgroundColor: primaryColor.withOpacity(0.5),
+                    disabledBackgroundColor: primaryColor.withValues(
+                      alpha: 0.5,
+                    ),
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(28),
                     ),
                     elevation: 8,
-                    shadowColor: primaryColor.withOpacity(0.3),
+                    shadowColor: primaryColor.withValues(alpha: 0.3),
                   ),
                   child: Text(
                     selectedInterests.length >= 3

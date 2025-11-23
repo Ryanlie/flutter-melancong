@@ -1,19 +1,17 @@
-// file: lib/main.dart
-
 import 'package:flutter/material.dart';
 import 'screens/event_detail_screen.dart';
 import 'screens/event_list_screen.dart';
 import 'screens/interest_selection_screen.dart';
 import 'screens/home_screen.dart';
 import 'screens/profile_screen.dart';
-import 'screens/splash_screen.dart'; // <-- TAMBAHKAN IMPORT INI
+import 'screens/splash_screen.dart';
 
 void main() {
-  runApp(const MelancogApp());
+  runApp(const MelancongApp());
 }
 
-class MelancogApp extends StatelessWidget {
-  const MelancogApp({Key? key}) : super(key: key);
+class MelancongApp extends StatelessWidget {
+  const MelancongApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +33,8 @@ class MelancogApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        // PERUBAHAN UTAMA: Ganti '/' ke SplashScreen
-        '/': (context) => const SplashScreen(), // <-- UBAH KE SPLASH SCREEN
-        '/interests': (context) => const InterestSelectionScreen(), // <-- TAMBAHKAN RUTE BARU UNTUK INTEREST
-
+        '/': (context) => const SplashScreen(),
+        '/interests': (context) => const InterestSelectionScreen(),
         '/home': (context) => const HomeScreen(),
         '/events': (context) => const EventListPage(),
         '/event-detail': (context) => const EventDetailPage(),

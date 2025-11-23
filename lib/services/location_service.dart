@@ -26,11 +26,13 @@ class LocationService {
     if (permission == LocationPermission.deniedForever) {
       // Izin ditolak permanen
       return Future.error(
-          'Location permissions are permanently denied, please enable it from settings.');
+        'Location permissions are permanently denied, please enable it from settings.',
+      );
     }
 
     // 3. Jika izin diberikan, ambil posisi saat ini
     return await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
+      desiredAccuracy: LocationAccuracy.high,
+    );
   }
 }

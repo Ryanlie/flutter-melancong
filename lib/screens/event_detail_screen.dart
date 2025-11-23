@@ -3,7 +3,7 @@ import '../widgets/bottom_nav_bar.dart'; // Import BottomNavBar
 
 // ==================== PAGE 3: EVENT DETAIL ====================
 class EventDetailPage extends StatefulWidget {
-  const EventDetailPage({Key? key}) : super(key: key);
+  const EventDetailPage({super.key});
 
   @override
   State<EventDetailPage> createState() => _EventDetailPageState();
@@ -28,7 +28,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = const Color(0xFFf25aa6);
     final bgColor = isDark ? const Color(0xFF221019) : const Color(0xFFf8f6f7);
-    final textColor = isDark ? const Color(0xFFf8f6f7) : const Color(0xFF221019);
+    final textColor = isDark
+        ? const Color(0xFFf8f6f7)
+        : const Color(0xFF221019);
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -62,8 +64,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                               Container(
                                 decoration: BoxDecoration(
                                   color: isDark
-                                      ? primaryColor.withOpacity(0.2)
-                                      : primaryColor.withOpacity(0.1),
+                                      ? primaryColor.withValues(alpha: 0.2)
+                                      : primaryColor.withValues(alpha: 0.1),
                                   shape: BoxShape.circle,
                                 ),
                                 child: IconButton(
@@ -72,7 +74,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                     color: isDark ? Colors.white : textColor,
                                   ),
                                   onPressed: () {
-                                    print('Back button pressed');
                                     Navigator.pop(context);
                                   },
                                 ),
@@ -80,8 +81,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                               Container(
                                 decoration: BoxDecoration(
                                   color: isDark
-                                      ? primaryColor.withOpacity(0.2)
-                                      : primaryColor.withOpacity(0.1),
+                                      ? primaryColor.withValues(alpha: 0.2)
+                                      : primaryColor.withValues(alpha: 0.1),
                                   shape: BoxShape.circle,
                                 ),
                                 child: IconButton(
@@ -128,7 +129,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                               'Saturday, July 20, 7:00 PM',
                               style: TextStyle(
                                 fontSize: 16,
-                                color: textColor.withOpacity(0.8),
+                                color: textColor.withValues(alpha: 0.8),
                               ),
                             ),
                           ],
@@ -147,7 +148,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                 'The Roxy Theatre, Los Angeles',
                                 style: TextStyle(
                                   fontSize: 16,
-                                  color: textColor.withOpacity(0.8),
+                                  color: textColor.withValues(alpha: 0.8),
                                 ),
                               ),
                             ),
@@ -191,7 +192,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                 borderRadius: BorderRadius.circular(28),
                               ),
                               elevation: 8,
-                              shadowColor: primaryColor.withOpacity(0.3),
+                              shadowColor: primaryColor.withValues(alpha: 0.3),
                             ),
                             child: const Text(
                               'RSVP',
@@ -217,8 +218,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             style: OutlinedButton.styleFrom(
                               foregroundColor: primaryColor,
                               backgroundColor: isDark
-                                  ? primaryColor.withOpacity(0.2)
-                                  : primaryColor.withOpacity(0.1),
+                                  ? primaryColor.withValues(alpha: 0.2)
+                                  : primaryColor.withValues(alpha: 0.1),
                               padding: const EdgeInsets.symmetric(vertical: 16),
                               side: BorderSide.none,
                               shape: RoundedRectangleBorder(
@@ -250,7 +251,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
             // Perlu disesuaikan karena bottom nav di EventDetailPage sedikit berbeda
             // dengan list page (opacity)
             overrideBg: isDark
-                ? const Color(0xFF221019).withOpacity(0.5)
+                ? const Color(0xFF221019).withValues(alpha: 0.5)
                 : const Color(0xFFf8f6f7),
           ),
         ],

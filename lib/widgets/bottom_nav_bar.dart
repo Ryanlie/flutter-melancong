@@ -16,18 +16,22 @@ class BottomNavBar extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = const Color(0xFFf25aa6);
-    final textColor = isDark ? const Color(0xFFf8f6f7) : const Color(0xFF221019);
+    final textColor = isDark
+        ? const Color(0xFFf8f6f7)
+        : const Color(0xFF221019);
 
     return Container(
       decoration: BoxDecoration(
-        color: overrideBg ?? (isDark
-            ? const Color(0xFF221019).withOpacity(0.9)
-            : const Color(0xFFf8f6f7).withOpacity(0.9)),
+        color:
+            overrideBg ??
+            (isDark
+                ? const Color(0xFF221019).withValues(alpha: 0.9)
+                : const Color(0xFFf8f6f7).withValues(alpha: 0.9)),
         border: Border(
           top: BorderSide(
             color: isDark
-                ? primaryColor.withOpacity(0.3)
-                : primaryColor.withOpacity(0.2),
+                ? primaryColor.withValues(alpha: 0.3)
+                : primaryColor.withValues(alpha: 0.2),
             width: 1,
           ),
         ),
@@ -39,8 +43,20 @@ class BottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildNavItem(Icons.home, 'Home', 0, primaryColor, textColor),
-              _buildNavItem(Icons.confirmation_number, 'Events', 1, primaryColor, textColor),
-              _buildNavItem(Icons.person, 'Profile', 2, primaryColor, textColor),
+              _buildNavItem(
+                Icons.confirmation_number,
+                'Events',
+                1,
+                primaryColor,
+                textColor,
+              ),
+              _buildNavItem(
+                Icons.person,
+                'Profile',
+                2,
+                primaryColor,
+                textColor,
+              ),
             ],
           ),
         ),
@@ -48,7 +64,13 @@ class BottomNavBar extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, int index, Color primaryColor, Color textColor) {
+  Widget _buildNavItem(
+    IconData icon,
+    String label,
+    int index,
+    Color primaryColor,
+    Color textColor,
+  ) {
     final isSelected = selectedIndex == index;
     return GestureDetector(
       onTap: () => onTap(index),
@@ -57,7 +79,7 @@ class BottomNavBar extends StatelessWidget {
         children: [
           Icon(
             icon,
-            color: isSelected ? primaryColor : textColor.withOpacity(0.6),
+            color: isSelected ? primaryColor : textColor.withValues(alpha: 0.6),
           ),
           const SizedBox(height: 4),
           Text(
@@ -65,7 +87,9 @@ class BottomNavBar extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-              color: isSelected ? primaryColor : textColor.withOpacity(0.6),
+              color: isSelected
+                  ? primaryColor
+                  : textColor.withValues(alpha: 0.6),
             ),
           ),
         ],

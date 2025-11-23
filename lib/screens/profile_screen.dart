@@ -20,7 +20,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final primaryColor = const Color(0xFFf25aa6);
     final bgColor = isDark ? const Color(0xFF221019) : const Color(0xFFf8f6f7);
     final surfaceColor = isDark ? const Color(0xFF2d1620) : Colors.white;
-    final textColor = isDark ? const Color(0xFFf8f6f7) : const Color(0xFF221019);
+    final textColor = isDark
+        ? const Color(0xFFf8f6f7)
+        : const Color(0xFF221019);
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -43,7 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: primaryColor.withOpacity(0.1),
+                      color: primaryColor.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(
@@ -68,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
+                            color: Colors.black.withValues(alpha: 0.05),
                             blurRadius: 10,
                             offset: const Offset(0, 2),
                           ),
@@ -85,7 +87,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               gradient: LinearGradient(
                                 colors: [
                                   primaryColor,
-                                  primaryColor.withOpacity(0.7),
+                                  primaryColor.withValues(alpha: 0.7),
                                 ],
                               ),
                             ),
@@ -111,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             'john.doe@email.com',
                             style: TextStyle(
                               fontSize: 14,
-                              color: textColor.withOpacity(0.6),
+                              color: textColor.withValues(alpha: 0.6),
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -123,13 +125,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Container(
                                 width: 1,
                                 height: 40,
-                                color: textColor.withOpacity(0.1),
+                                color: textColor.withValues(alpha: 0.1),
                               ),
                               _buildStatItem('28', 'Following', textColor),
                               Container(
                                 width: 1,
                                 height: 40,
-                                color: textColor.withOpacity(0.1),
+                                color: textColor.withValues(alpha: 0.1),
                               ),
                               _buildStatItem('156', 'Followers', textColor),
                             ],
@@ -182,10 +184,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   vertical: 8,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: primaryColor.withOpacity(0.1),
+                                  color: primaryColor.withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(20),
                                   border: Border.all(
-                                    color: primaryColor.withOpacity(0.3),
+                                    color: primaryColor.withValues(alpha: 0.3),
                                   ),
                                 ),
                                 child: Text(
@@ -212,7 +214,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
+                            color: Colors.black.withValues(alpha: 0.05),
                             blurRadius: 10,
                             offset: const Offset(0, 2),
                           ),
@@ -237,7 +239,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                           Divider(
                             height: 1,
-                            color: textColor.withOpacity(0.1),
+                            color: textColor.withValues(alpha: 0.1),
                           ),
                           _buildSettingTile(
                             Icons.location_on_outlined,
@@ -246,13 +248,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Icon(
                               Icons.arrow_forward_ios,
                               size: 16,
-                              color: textColor.withOpacity(0.4),
+                              color: textColor.withValues(alpha: 0.4),
                             ),
                             textColor,
                           ),
                           Divider(
                             height: 1,
-                            color: textColor.withOpacity(0.1),
+                            color: textColor.withValues(alpha: 0.1),
                           ),
                           _buildSettingTile(
                             Icons.language,
@@ -261,13 +263,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Icon(
                               Icons.arrow_forward_ios,
                               size: 16,
-                              color: textColor.withOpacity(0.4),
+                              color: textColor.withValues(alpha: 0.4),
                             ),
                             textColor,
                           ),
                           Divider(
                             height: 1,
-                            color: textColor.withOpacity(0.1),
+                            color: textColor.withValues(alpha: 0.1),
                           ),
                           _buildSettingTile(
                             Icons.privacy_tip_outlined,
@@ -276,7 +278,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             Icon(
                               Icons.arrow_forward_ios,
                               size: 16,
-                              color: textColor.withOpacity(0.4),
+                              color: textColor.withValues(alpha: 0.4),
                             ),
                             textColor,
                           ),
@@ -337,7 +339,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           label,
           style: TextStyle(
             fontSize: 12,
-            color: textColor.withOpacity(0.6),
+            color: textColor.withValues(alpha: 0.6),
           ),
         ),
       ],
@@ -345,25 +347,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildSettingTile(
-      IconData icon,
-      String title,
-      String subtitle,
-      Widget trailing,
-      Color textColor,
-      ) {
+    IconData icon,
+    String title,
+    String subtitle,
+    Widget trailing,
+    Color textColor,
+  ) {
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       leading: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: const Color(0xFFf25aa6).withOpacity(0.1),
+          color: const Color(0xFFf25aa6).withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Icon(
-          icon,
-          color: const Color(0xFFf25aa6),
-          size: 20,
-        ),
+        child: Icon(icon, color: const Color(0xFFf25aa6), size: 20),
       ),
       title: Text(
         title,
@@ -375,10 +373,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
       subtitle: Text(
         subtitle,
-        style: TextStyle(
-          fontSize: 12,
-          color: textColor.withOpacity(0.6),
-        ),
+        style: TextStyle(fontSize: 12, color: textColor.withValues(alpha: 0.6)),
       ),
       trailing: trailing,
     );
@@ -400,10 +395,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               Navigator.pop(context);
               // Handle logout
             },
-            child: const Text(
-              'Logout',
-              style: TextStyle(color: Colors.red),
-            ),
+            child: const Text('Logout', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),
@@ -414,13 +406,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Container(
       decoration: BoxDecoration(
         color: isDark
-            ? const Color(0xFF221019).withOpacity(0.9)
-            : const Color(0xFFf8f6f7).withOpacity(0.9),
+            ? const Color(0xFF221019).withValues(alpha: 0.9)
+            : const Color(0xFFf8f6f7).withValues(alpha: 0.9),
         border: Border(
           top: BorderSide(
             color: isDark
-                ? primaryColor.withOpacity(0.3)
-                : primaryColor.withOpacity(0.2),
+                ? primaryColor.withValues(alpha: 0.3)
+                : primaryColor.withValues(alpha: 0.2),
             width: 1,
           ),
         ),
@@ -432,8 +424,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _buildNavItem(Icons.home, 'Home', 0, primaryColor, textColor),
-              _buildNavItem(Icons.confirmation_number, 'Events', 1, primaryColor, textColor),
-              _buildNavItem(Icons.person, 'Profile', 2, primaryColor, textColor),
+              _buildNavItem(
+                Icons.confirmation_number,
+                'Events',
+                1,
+                primaryColor,
+                textColor,
+              ),
+              _buildNavItem(
+                Icons.person,
+                'Profile',
+                2,
+                primaryColor,
+                textColor,
+              ),
             ],
           ),
         ),
@@ -441,7 +445,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildNavItem(IconData icon, String label, int index, Color primaryColor, Color textColor) {
+  Widget _buildNavItem(
+    IconData icon,
+    String label,
+    int index,
+    Color primaryColor,
+    Color textColor,
+  ) {
     final isSelected = selectedNavIndex == index;
     return GestureDetector(
       onTap: () {
@@ -460,7 +470,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         children: [
           Icon(
             icon,
-            color: isSelected ? primaryColor : textColor.withOpacity(0.6),
+            color: isSelected ? primaryColor : textColor.withValues(alpha: 0.6),
           ),
           const SizedBox(height: 4),
           Text(
@@ -468,7 +478,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             style: TextStyle(
               fontSize: 12,
               fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-              color: isSelected ? primaryColor : textColor.withOpacity(0.6),
+              color: isSelected
+                  ? primaryColor
+                  : textColor.withValues(alpha: 0.6),
             ),
           ),
         ],
