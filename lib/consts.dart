@@ -66,6 +66,8 @@ final List<Map<String, String>> eventList = [
         'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=500',
     'attendees': '2.5K',
     'category': 'Music',
+    'description':
+        'Join us for a weekend of live music, food, and fun under the sun. Featuring top artists and local bands, this is the can\'t-miss event of the summer!',
   },
   {
     'title': 'Food Truck Rally',
@@ -75,6 +77,8 @@ final List<Map<String, String>> eventList = [
         'https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?w=500',
     'attendees': '1.8K',
     'category': 'Food',
+    'description':
+        'Explore a variety of culinary delights from the city\'s best food trucks. A taste adventure for the whole family with live entertainment and seating areas.',
   },
   {
     'title': 'Art Exhibition',
@@ -84,14 +88,7 @@ final List<Map<String, String>> eventList = [
         'https://images.unsplash.com/photo-1536924940846-227afb31e2a5?w=500',
     'attendees': '500',
     'category': 'Art',
-  },
-  {
-    'title': 'Bifest',
-    'date': 'Nov 25 · 08:00',
-    'location': 'Binus',
-    'image':
-        'https://images.unsplash.com/photo-1448584109583-8f5fe2e61544?w=400',
-    'attendees': '1.2K',
-    'category': 'Crowds',
+    'description':
+        'Discover stunning works from emerging and established artists. This exhibition showcases contemporary paintings, sculptures, and interactive installations.',
   },
 ];

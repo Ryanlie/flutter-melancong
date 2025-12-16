@@ -164,7 +164,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, '/');
+                                  Navigator.pushReplacementNamed(context, '/interests');
                                 },
                                 child: Text(
                                   'Edit',
@@ -395,7 +395,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           TextButton(
             onPressed: () {
-              Navigator.pop(context);
+              // Navigator.pop(context);
+              Navigator.pushReplacementNamed(context, '/');
               // Handle logout
             },
             child: const Text('Logout', style: TextStyle(color: Colors.red)),

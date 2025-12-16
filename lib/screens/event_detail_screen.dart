@@ -18,6 +18,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, dynamic> event =
+        ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = colorPink;
     final bgColor = isDark ? colorBlack : colorWhite;
@@ -37,11 +39,9 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     children: [
                       Container(
                         height: 300,
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(
-                              'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=800',
-                            ),
+                            image: NetworkImage(event['image']),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -100,7 +100,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Indie Rock Concert',
+                          event['title'],
                           style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
@@ -117,7 +117,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             ),
                             const SizedBox(width: 12),
                             Text(
-                              'Saturday, July 20, 7:00 PM',
+                              event['date'],
                               style: TextStyle(
                                 fontSize: 16,
                                 color: textColor.withValues(alpha: 0.8),
@@ -136,7 +136,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                             const SizedBox(width: 12),
                             Expanded(
                               child: Text(
-                                'The Roxy Theatre, Los Angeles',
+                                event['location'],
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: textColor.withValues(alpha: 0.8),
@@ -147,7 +147,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                         ),
                         const SizedBox(height: 24),
                         Text(
-                          'Experience the raw energy of indie rock with The Midnight Echoes and special guests. This concert promises a night of unforgettable music and vibrant atmosphere. Get your tickets now!',
+                          event['description'],
                           style: TextStyle(
                             fontSize: 16,
                             height: 1.6,
@@ -236,9 +236,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
           ),
 
           // Bottom Navigation
-          BottomNavBar(
-            current: selectedNavIndex,
-          ),
+          BottomNavBar(current: selectedNavIndex),
         ],
       ),
     );

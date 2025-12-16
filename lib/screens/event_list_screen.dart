@@ -16,9 +16,9 @@ class _EventListPageState extends State<EventListPage> {
   String selectedCategory = 'All';
   String selectedNavIndex = '/events';
 
-  void _navigateToDetail() {
+  void _navigateToDetail(event) {
     print('Navigating to event detail');
-    Navigator.pushNamed(context, '/event-detail');
+    Navigator.pushNamed(context, '/event-detail', arguments: event);
   }
 
   @override
@@ -77,92 +77,91 @@ class _EventListPageState extends State<EventListPage> {
               ),
             ),
 
-            // Content
             Expanded(
               child: ListView(
                 padding: EdgeInsets.all(16),
                 children: [
                   // Featured Event (Dapat diekstrak ke widget terpisah)
-                  GestureDetector(
-                    onTap: _navigateToDetail,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: surfaceColor,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.05),
-                            blurRadius: 8,
-                            offset: const Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 160,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(12),
-                              ),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=400',
-                                ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Featured',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600,
-                                    color: primaryColor,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Text(
-                                  'Cosplay Mania',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: textColor,
-                                  ),
-                                ),
-                                const SizedBox(height: 8),
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.calendar_today,
-                                      size: 16,
-                                      color: textColor.withValues(alpha: 0.7),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Text(
-                                      'Jul 20 · 10:00 AM',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: textColor.withValues(alpha: 0.7),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  const SizedBox(height: 24),
+                  // GestureDetector(
+                  //   onTap: _navigateToDetail,
+                  //   child: Container(
+                  //     decoration: BoxDecoration(
+                  //       color: surfaceColor,
+                  //       borderRadius: BorderRadius.circular(12),
+                  //       boxShadow: [
+                  //         BoxShadow(
+                  //           color: Colors.black.withValues(alpha: 0.05),
+                  //           blurRadius: 8,
+                  //           offset: const Offset(0, 2),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //     child: Column(
+                  //       crossAxisAlignment: CrossAxisAlignment.start,
+                  //       children: [
+                  //         Container(
+                  //           height: 160,
+                  //           decoration: const BoxDecoration(
+                  //             borderRadius: BorderRadius.vertical(
+                  //               top: Radius.circular(12),
+                  //             ),
+                  //             image: DecorationImage(
+                  //               image: NetworkImage(
+                  //                 'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=400',
+                  //               ),
+                  //               fit: BoxFit.cover,
+                  //             ),
+                  //           ),
+                  //         ),
+                  //         Padding(
+                  //           padding: const EdgeInsets.all(16),
+                  //           child: Column(
+                  //             crossAxisAlignment: CrossAxisAlignment.start,
+                  //             children: [
+                  //               Text(
+                  //                 'Featured',
+                  //                 style: TextStyle(
+                  //                   fontSize: 14,
+                  //                   fontWeight: FontWeight.w600,
+                  //                   color: primaryColor,
+                  //                 ),
+                  //               ),
+                  //               const SizedBox(height: 4),
+                  //               Text(
+                  //                 'Cosplay Mania',
+                  //                 style: TextStyle(
+                  //                   fontSize: 18,
+                  //                   fontWeight: FontWeight.bold,
+                  //                   color: textColor,
+                  //                 ),
+                  //               ),
+                  //               const SizedBox(height: 8),
+                  //               Row(
+                  //                 children: [
+                  //                   Icon(
+                  //                     Icons.calendar_today,
+                  //                     size: 16,
+                  //                     color: textColor.withValues(alpha: 0.7),
+                  //                   ),
+                  //                   const SizedBox(width: 8),
+                  //                   Text(
+                  //                     'Jul 20 · 10:00 AM',
+                  //                     style: TextStyle(
+                  //                       fontSize: 14,
+                  //                       color: textColor.withValues(alpha: 0.7),
+                  //                     ),
+                  //                   ),
+                  //                 ],
+                  //               ),
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  //
+                  // const SizedBox(height: 24),
                   Text(
                     'Nearby',
                     style: TextStyle(
@@ -173,12 +172,9 @@ class _EventListPageState extends State<EventListPage> {
                   ),
                   const SizedBox(height: 16),
 
-                  // Event List (Menggunakan EventCard jika sudah dibuat)
                   ...eventList.map(
                     (event) => Padding(
                       padding: const EdgeInsets.only(bottom: 12),
-                      // Jika EventCard sudah dibuat, panggil EventCard di sini
-                      // Contoh: EventCard(event: event, onTap: _navigateToDetail)
                       child: _buildEventListTile(
                         event,
                         surfaceColor,
@@ -237,12 +233,12 @@ class _EventListPageState extends State<EventListPage> {
 
   // Helper widget untuk list event
   Widget _buildEventListTile(
-    Map<String, String> event,
+    Map<String, dynamic> event,
     Color surfaceColor,
     Color textColor,
   ) {
     return GestureDetector(
-      onTap: _navigateToDetail,
+      onTap: () => _navigateToDetail(event),
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(

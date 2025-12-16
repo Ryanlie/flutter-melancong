@@ -217,9 +217,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         final event = eventList[index];
                         return GestureDetector(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/event-detail');
-                          },
+                            onTap: () =>
+                                Navigator.pushNamed(context, '/event-detail', arguments: event)
+                          ,
+                          // onTap: () {
+                          //   Navigator.pushNamed(context, '/event-detail');
+                          // },
                           child: Container(
                             margin: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(
