@@ -159,33 +159,36 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Container(
                             width: 80,
                             margin: const EdgeInsets.only(right: 16),
-                            child: Column(
-                              children: [
-                                Container(
-                                  width: 64,
-                                  height: 64,
-                                  decoration: BoxDecoration(
-                                    color: (category['color'] as Color)
-                                        .withValues(alpha: 0.15),
-                                    borderRadius: BorderRadius.circular(16),
+                            child: GestureDetector(
+                              onTap: () => Navigator.pushNamed(context, '/events', arguments: category['label']),
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: 64,
+                                    height: 64,
+                                    decoration: BoxDecoration(
+                                      color: (category['color'] as Color)
+                                          .withValues(alpha: 0.15),
+                                      borderRadius: BorderRadius.circular(16),
+                                    ),
+                                    child: Icon(
+                                      category['icon'] as IconData,
+                                      color: category['color'] as Color,
+                                      size: 28,
+                                    ),
                                   ),
-                                  child: Icon(
-                                    category['icon'] as IconData,
-                                    color: category['color'] as Color,
-                                    size: 28,
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    category['label'] as String,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: textColor,
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                ),
-                                const SizedBox(height: 8),
-                                Text(
-                                  category['label'] as String,
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600,
-                                    color: textColor,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           );
                         },
@@ -217,9 +220,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         final event = eventList[index];
                         return GestureDetector(
-                            onTap: () =>
-                                Navigator.pushNamed(context, '/event-detail', arguments: event)
-                          ,
+                          onTap: () => Navigator.pushNamed(
+                            context,
+                            '/event-detail',
+                            arguments: event,
+                          ),
                           // onTap: () {
                           //   Navigator.pushNamed(context, '/event-detail');
                           // },
@@ -370,7 +375,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavBar(current: selectedNavIndex,),
+      bottomNavigationBar: BottomNavBar(current: selectedNavIndex),
     );
   }
 }

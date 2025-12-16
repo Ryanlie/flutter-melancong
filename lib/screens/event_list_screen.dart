@@ -21,6 +21,11 @@ class _EventListPageState extends State<EventListPage> {
     Navigator.pushNamed(context, '/event-detail', arguments: event);
   }
 
+  @override void didChangeDependencies() {
+    super.didChangeDependencies();
+    selectedCategory = ModalRoute.of(context)!.settings.arguments as String?;
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
@@ -173,7 +178,11 @@ class _EventListPageState extends State<EventListPage> {
                   const SizedBox(height: 16),
 
                   ...eventList
-                      .where((event) => selectedCategory == null? true: event['category'] == selectedCategory)
+                      .where(
+                        (event) => selectedCategory == null
+                            ? true
+                            : event['category'] == selectedCategory,
+                      )
                       .map(
                         (event) => Padding(
                           padding: const EdgeInsets.only(bottom: 12),
@@ -207,11 +216,18 @@ class _EventListPageState extends State<EventListPage> {
       return GestureDetector(
         onTap: () {
           setState(() {
-            if (selectedCategory == category) {
-              selectedCategory = null;
-            } else {
-              selectedCategory = category;
-            }
+            // if (selectedCategory == category) {
+            //   print('Pressed A: $category');
+            //   selectedCategory = null;
+            //   isSelected = false;
+            // } else {
+            //   selectedCategory = category;
+            //   isSelected = true;
+            //   print('Pressed B: $category');
+            //   print('Pressed B: $selectedCategory');
+            //   print('Pressed B: $isSelected');
+            // }
+            selectedCategory = category;
           });
         },
         child: Container(
