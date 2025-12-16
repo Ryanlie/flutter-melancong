@@ -21,7 +21,8 @@ class _EventListPageState extends State<EventListPage> {
     Navigator.pushNamed(context, '/event-detail', arguments: event);
   }
 
-  @override void didChangeDependencies() {
+  @override
+  void didChangeDependencies() {
     super.didChangeDependencies();
     selectedCategory = ModalRoute.of(context)!.settings.arguments as String?;
   }
@@ -86,87 +87,6 @@ class _EventListPageState extends State<EventListPage> {
               child: ListView(
                 padding: EdgeInsets.all(16),
                 children: [
-                  // Featured Event (Dapat diekstrak ke widget terpisah)
-                  // GestureDetector(
-                  //   onTap: _navigateToDetail,
-                  //   child: Container(
-                  //     decoration: BoxDecoration(
-                  //       color: surfaceColor,
-                  //       borderRadius: BorderRadius.circular(12),
-                  //       boxShadow: [
-                  //         BoxShadow(
-                  //           color: Colors.black.withValues(alpha: 0.05),
-                  //           blurRadius: 8,
-                  //           offset: const Offset(0, 2),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //     child: Column(
-                  //       crossAxisAlignment: CrossAxisAlignment.start,
-                  //       children: [
-                  //         Container(
-                  //           height: 160,
-                  //           decoration: const BoxDecoration(
-                  //             borderRadius: BorderRadius.vertical(
-                  //               top: Radius.circular(12),
-                  //             ),
-                  //             image: DecorationImage(
-                  //               image: NetworkImage(
-                  //                 'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=400',
-                  //               ),
-                  //               fit: BoxFit.cover,
-                  //             ),
-                  //           ),
-                  //         ),
-                  //         Padding(
-                  //           padding: const EdgeInsets.all(16),
-                  //           child: Column(
-                  //             crossAxisAlignment: CrossAxisAlignment.start,
-                  //             children: [
-                  //               Text(
-                  //                 'Featured',
-                  //                 style: TextStyle(
-                  //                   fontSize: 14,
-                  //                   fontWeight: FontWeight.w600,
-                  //                   color: primaryColor,
-                  //                 ),
-                  //               ),
-                  //               const SizedBox(height: 4),
-                  //               Text(
-                  //                 'Cosplay Mania',
-                  //                 style: TextStyle(
-                  //                   fontSize: 18,
-                  //                   fontWeight: FontWeight.bold,
-                  //                   color: textColor,
-                  //                 ),
-                  //               ),
-                  //               const SizedBox(height: 8),
-                  //               Row(
-                  //                 children: [
-                  //                   Icon(
-                  //                     Icons.calendar_today,
-                  //                     size: 16,
-                  //                     color: textColor.withValues(alpha: 0.7),
-                  //                   ),
-                  //                   const SizedBox(width: 8),
-                  //                   Text(
-                  //                     'Jul 20 · 10:00 AM',
-                  //                     style: TextStyle(
-                  //                       fontSize: 14,
-                  //                       color: textColor.withValues(alpha: 0.7),
-                  //                     ),
-                  //                   ),
-                  //                 ],
-                  //               ),
-                  //             ],
-                  //           ),
-                  //         ),
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                  //
-                  // const SizedBox(height: 24),
                   Text(
                     'Nearby',
                     style: TextStyle(
@@ -216,18 +136,13 @@ class _EventListPageState extends State<EventListPage> {
       return GestureDetector(
         onTap: () {
           setState(() {
-            // if (selectedCategory == category) {
-            //   print('Pressed A: $category');
-            //   selectedCategory = null;
-            //   isSelected = false;
-            // } else {
-            //   selectedCategory = category;
-            //   isSelected = true;
-            //   print('Pressed B: $category');
-            //   print('Pressed B: $selectedCategory');
-            //   print('Pressed B: $isSelected');
-            // }
-            selectedCategory = category;
+            if (selectedCategory == category) {
+              selectedCategory = null;
+              isSelected = false;
+            } else {
+              selectedCategory = category;
+              isSelected = true;
+            }
           });
         },
         child: Container(
