@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:fluterproject/consts.dart';
+import 'package:fluterproject/global.dart' as global;
+
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -17,7 +19,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool notificationsEnabled = true;
   bool darkModeEnabled = false;
 
-  final List<String> savedInterests = ['Music', 'Sports', 'Food', 'Travel'];
+  final Set<String> savedInterests = global.interests;
 
   @override
   Widget build(BuildContext context) {

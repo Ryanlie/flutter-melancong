@@ -1,0 +1,3 @@
+library;
+
+Set<String> interests = {};

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:fluterproject/consts.dart';
+import 'package:fluterproject/global.dart' as global;
 
 class InterestSelectionScreen extends StatefulWidget {
   const InterestSelectionScreen({super.key});
@@ -13,7 +14,7 @@ class InterestSelectionScreen extends StatefulWidget {
 }
 
 class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
-  final Set<String> selectedInterests = {};
+  final Set<String> selectedInterests = global.interests;
 
   void toggleInterest(String interest) {
     setState(() {
@@ -29,6 +30,8 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
     if (selectedInterests.length < 3) {
       return;
     }
+
+    global.interests = selectedInterests;
 
     showDialog(
       context: context,
