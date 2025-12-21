@@ -23,7 +23,6 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void _requestLocationContinue() async {
-    print("Requesting");
     try {
       LocationPermission permission = await Geolocator.requestPermission();
 

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:fluterproject/consts.dart';
+import 'package:fluterproject/global.dart' as global;
 import 'package:fluterproject/widgets/bottom_nav_bar.dart';
 
-// ==================== PAGE 3: EVENT DETAIL ====================
 class EventDetailPage extends StatefulWidget {
   const EventDetailPage({super.key});
 
@@ -167,13 +167,27 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           child: ElevatedButton(
                             onPressed: () {
                               print('RSVP button pressed');
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('RSVP Confirmed!'),
-                                  backgroundColor: Color(0xFFf25aa6),
-                                  duration: Duration(seconds: 2),
-                                ),
-                              );
+                              if (global.rsvpList.contains(event)) {
+                                global.rsvpList.remove(event);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text(
+                                      'Event already in RSVP! Removing...',
+                                    ),
+                                    backgroundColor: Color(0xFFf25aa6),
+                                    duration: Duration(seconds: 2),
+                                  ),
+                                );
+                              } else {
+                                global.rsvpList.add(event);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('RSVP Confirmed!'),
+                                    backgroundColor: Color(0xFFf25aa6),
+                                    duration: Duration(seconds: 2),
+                                  ),
+                                );
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: primaryColor,

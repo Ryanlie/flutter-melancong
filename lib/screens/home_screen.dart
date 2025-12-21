@@ -24,8 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
     final surfaceColor = isDark ? colorBlackLighter : Colors.white;
     final textColor = isDark ? colorWhite : colorBlack;
     final interested = eventList.where((e) => global.interests.contains(e['category'])).toList();
-    print(interested);
-
 
     return Scaffold(
       backgroundColor: bgColor,

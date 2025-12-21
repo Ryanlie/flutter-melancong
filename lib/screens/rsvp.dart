@@ -3,27 +3,22 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:fluterproject/consts.dart';
+import 'package:fluterproject/global.dart' as global;
 import 'package:fluterproject/widgets/bottom_nav_bar.dart';
 
-class EventListPage extends StatefulWidget {
-  const EventListPage({super.key});
+class RsvpPage extends StatefulWidget {
+  const RsvpPage({super.key});
 
   @override
-  State<EventListPage> createState() => _EventListPageState();
+  State<RsvpPage> createState() => _RsvpPageState();
 }
 
-class _EventListPageState extends State<EventListPage> {
+class _RsvpPageState extends State<RsvpPage> {
   String? selectedCategory;
-  String selectedNavIndex = '/events';
+  String selectedNavIndex = '/rsvp';
 
   void _navigateToDetail(event) {
     Navigator.pushNamed(context, '/event-detail', arguments: event);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    selectedCategory = ModalRoute.of(context)!.settings.arguments as String?;
   }
 
   @override
@@ -37,89 +32,49 @@ class _EventListPageState extends State<EventListPage> {
     return Scaffold(
       backgroundColor: bgColor,
       body: SafeArea(
-        child: Column(
-          children: [
-            // Header
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(color: bgColor.withValues(alpha: 0.8)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(width: 40),
-                  Text(
-                    'Events',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
-                    ),
+        child: SizedBox(
+          width: double.maxFinite,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  'RSVP List',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: textColor,
                   ),
-                  IconButton(
-                    icon: Icon(Icons.search, color: textColor),
-                    onPressed: () {
-                      print('Search pressed');
-                    },
-                  ),
-                ],
+                ),
               ),
-            ),
 
-            // Categories
-            Container(
-              height: 50,
-              padding: EdgeInsets.symmetric(vertical: 8),
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                itemCount: interestList.length,
-                separatorBuilder: (_, _) {
-                  return SizedBox(width: 12.0);
-                },
-                itemBuilder: (context, index) {
-                  return _chipBuilder(context, index, primaryColor, isDark);
-                },
-              ),
-            ),
-
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.all(16),
-                children: [
-                  Text(
-                    'Nearby',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-
-                  ...eventList
-                      .where(
-                        (event) => selectedCategory == null
-                            ? true
-                            : event['category'] == selectedCategory,
-                      )
-                      .map(
-                        (event) => Padding(
-                          padding: const EdgeInsets.only(bottom: 12),
-                          child: _buildEventListTile(
-                            event,
-                            surfaceColor,
-                            textColor,
-                          ),
-                        ),
-                      ),
-                ],
-              ),
-            ),
-          ],
+              buildList(surfaceColor, textColor),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavBar(current: selectedNavIndex),
     );
+  }
+
+  Expanded buildList(Color surfaceColor, Color textColor) {
+    if (global.rsvpList.isNotEmpty) {
+      return Expanded(
+        child: ListView(
+          padding: EdgeInsets.all(16),
+          children: [
+            ...global.rsvpList.map(
+              (event) => Padding(
+                padding: const EdgeInsets.only(bottom: 12),
+                child: _buildEventListTile(event, surfaceColor, textColor),
+              ),
+            ),
+          ],
+        ),
+      );
+    } else {
+      return Expanded(child: Text('Belum ada RSVP'));
+    }
   }
 
   Widget _chipBuilder(
