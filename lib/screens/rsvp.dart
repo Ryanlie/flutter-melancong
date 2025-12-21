@@ -18,17 +18,31 @@ class _RsvpPageState extends State<RsvpPage> {
   String selectedNavIndex = '/rsvp';
 
   void _navigateToDetail(event) {
-    Navigator.pushNamed(context, '/event-detail', arguments: event);
+    Navigator.pushNamed(context, '/event-detail', arguments: event).then((_) {
+      setState(() {});
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final primaryColor = colorPink;
     final bgColor = isDark ? colorBlack : colorWhite;
     final surfaceColor = isDark ? colorBlackLighter : Colors.white;
     final textColor = isDark ? colorWhite : colorBlack;
 
+    return ValueListenableBuilder(
+      valueListenable: global.rsvpList,
+      builder: (context, value, child) =>
+          buildScaffold(bgColor, textColor, surfaceColor, value),
+    );
+  }
+
+  Scaffold buildScaffold(
+    Color bgColor,
+    Color textColor,
+    Color surfaceColor,
+    Set<Map<String, dynamic>> value,
+  ) {
     return Scaffold(
       backgroundColor: bgColor,
       body: SafeArea(
@@ -48,7 +62,7 @@ class _RsvpPageState extends State<RsvpPage> {
                 ),
               ),
 
-              buildList(surfaceColor, textColor),
+              buildList(surfaceColor, textColor, value),
             ],
           ),
         ),
@@ -57,13 +71,17 @@ class _RsvpPageState extends State<RsvpPage> {
     );
   }
 
-  Expanded buildList(Color surfaceColor, Color textColor) {
-    if (global.rsvpList.isNotEmpty) {
+  Expanded buildList(
+    Color surfaceColor,
+    Color textColor,
+    Set<Map<String, dynamic>> value,
+  ) {
+    if (value.isNotEmpty) {
       return Expanded(
         child: ListView(
           padding: EdgeInsets.all(16),
           children: [
-            ...global.rsvpList.map(
+            ...value.map(
               (event) => Padding(
                 padding: const EdgeInsets.only(bottom: 12),
                 child: _buildEventListTile(event, surfaceColor, textColor),
@@ -79,51 +97,6 @@ class _RsvpPageState extends State<RsvpPage> {
           child: Text(
             'Belum ada event',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ),
-      );
-    }
-  }
-
-  Widget _chipBuilder(
-    BuildContext context,
-    int index,
-    Color primaryColor,
-    bool isDark,
-  ) {
-    {
-      String category = interestList.elementAt(index);
-      bool isSelected = selectedCategory == category;
-
-      return GestureDetector(
-        onTap: () {
-          setState(() {
-            if (selectedCategory == category) {
-              selectedCategory = null;
-              isSelected = false;
-            } else {
-              selectedCategory = category;
-              isSelected = true;
-            }
-          });
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          decoration: BoxDecoration(
-            color: isSelected
-                ? primaryColor
-                : isDark
-                ? primaryColor.withValues(alpha: 0.2)
-                : primaryColor.withValues(alpha: 0.1),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Text(
-            category,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: isSelected ? Colors.white : primaryColor,
-            ),
           ),
         ),
       );

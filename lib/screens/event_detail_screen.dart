@@ -167,8 +167,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
                           child: ElevatedButton(
                             onPressed: () {
                               print('RSVP button pressed');
-                              if (global.rsvpList.contains(event)) {
-                                global.rsvpList.remove(event);
+                              if (global.rsvpList.value.contains(event)) {
+                                global.rsvpList.value.remove(event);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text(
@@ -179,7 +179,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                                   ),
                                 );
                               } else {
-                                global.rsvpList.add(event);
+                                global.rsvpList.value.add(event);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                     content: Text('RSVP Confirmed!'),

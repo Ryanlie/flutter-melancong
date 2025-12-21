@@ -1,5 +1,8 @@
 library;
 
+import 'package:flutter/widgets.dart';
+
 Set<String> interests = {};
 
-Set<Map<String, dynamic>> rsvpList = {};
+ValueNotifier<Set<Map<String, dynamic>>> rsvpList =
+    ValueNotifier<Set<Map<String, dynamic>>>({});
