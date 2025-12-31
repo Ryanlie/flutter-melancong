@@ -18,7 +18,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> event =
+    final event =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = colorPink;
@@ -27,28 +27,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
 
     return ValueListenableBuilder(
       valueListenable: global.rsvpList,
-      builder: (context, value, child) => buildScaffold(
-        bgColor,
-        event,
-        isDark,
-        primaryColor,
-        textColor,
-        context,
-        value,
-      ),
-    );
-  }
-
-  Scaffold buildScaffold(
-    Color bgColor,
-    Map<String, dynamic> event,
-    bool isDark,
-    Color primaryColor,
-    Color textColor,
-    BuildContext context,
-    Set<Map<String, dynamic>> value,
-  ) {
-    return Scaffold(
+      builder: (context, value, child) => Scaffold(
       backgroundColor: bgColor,
       body: Column(
         children: [
@@ -241,17 +220,18 @@ class _EventDetailPageState extends State<EventDetailPage> {
           BottomNavBar(current: selectedNavIndex),
         ],
       ),
+    ),
     );
   }
 
   ElevatedButton rsvpButton(
-      Map<String, dynamic> event,
-      BuildContext context,
-      Color primaryColor,
-      bool contained,
-      bool isDark,
-      Set<Map<String, dynamic>> value,
-      ) {
+    Map<String, dynamic> event,
+    BuildContext context,
+    Color primaryColor,
+    bool contained,
+    bool isDark,
+    Set<Map<String, dynamic>> value,
+  ) {
     return ElevatedButton(
       onPressed: () {
         print('RSVP button pressed');
@@ -261,7 +241,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('RSVP Cancelled!'),
-              backgroundColor: Colors.redAccent, // Changed for better user feedback
+              backgroundColor: Colors.redAccent,
+              // Changed for better user feedback
               duration: Duration(seconds: 2),
             ),
           );
@@ -279,31 +260,30 @@ class _EventDetailPageState extends State<EventDetailPage> {
       },
       style: contained
           ? ElevatedButton.styleFrom(
-        foregroundColor: primaryColor,
-        backgroundColor: isDark
-            ? primaryColor.withAlpha(51) // Using withAlpha for clarity
-            : primaryColor.withAlpha(26),
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        side: BorderSide.none,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(28),
-        ),
-      )
+              foregroundColor: primaryColor,
+              backgroundColor: isDark
+                  ? primaryColor.withAlpha(51) // Using withAlpha for clarity
+                  : primaryColor.withAlpha(26),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              side: BorderSide.none,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(28),
+              ),
+            )
           : ElevatedButton.styleFrom(
-        backgroundColor: primaryColor,
-        foregroundColor: Colors.white,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(28),
-        ),
-        elevation: 8,
-        shadowColor: primaryColor.withAlpha(77),
-      ),
+              backgroundColor: primaryColor,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(28),
+              ),
+              elevation: 8,
+              shadowColor: primaryColor.withAlpha(77),
+            ),
       child: Text(
         contained ? 'Cancel RSVP' : 'RSVP',
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
     );
   }
-
 }

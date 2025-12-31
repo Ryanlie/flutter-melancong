@@ -32,42 +32,32 @@ class _RsvpPageState extends State<RsvpPage> {
 
     return ValueListenableBuilder(
       valueListenable: global.rsvpList,
-      builder: (context, value, child) =>
-          buildScaffold(bgColor, textColor, surfaceColor, value),
-    );
-  }
-
-  Scaffold buildScaffold(
-    Color bgColor,
-    Color textColor,
-    Color surfaceColor,
-    Set<Map<String, dynamic>> value,
-  ) {
-    return Scaffold(
-      backgroundColor: bgColor,
-      body: SafeArea(
-        child: SizedBox(
-          width: double.maxFinite,
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  'RSVP List',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: textColor,
+      builder: (context, value, child) => Scaffold(
+        backgroundColor: bgColor,
+        body: SafeArea(
+          child: SizedBox(
+            width: double.maxFinite,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    'RSVP List',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: textColor,
+                    ),
                   ),
                 ),
-              ),
 
-              buildList(surfaceColor, textColor, value),
-            ],
+                buildList(surfaceColor, textColor, value),
+              ],
+            ),
           ),
         ),
+        bottomNavigationBar: BottomNavBar(current: selectedNavIndex),
       ),
-      bottomNavigationBar: BottomNavBar(current: selectedNavIndex),
     );
   }
 
