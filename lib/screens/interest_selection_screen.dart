@@ -50,7 +50,7 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
     );
 
     // TODO: Hilangkan simulasi waktu tunggu
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 1));
 
     if (mounted) {
       Navigator.pushReplacementNamed(context, '/home');
@@ -59,9 +59,8 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = colorPink;
-    final textColor = isDark ? colorWhite : colorBlackText;
+    final textColor = colorBlackText;
     final subtextColor = textColor.withValues(alpha: 0.7);
 
     return Scaffold(
@@ -104,16 +103,10 @@ class _InterestSelectionScreenState extends State<InterestSelectionScreen> {
                       duration: const Duration(milliseconds: 200),
                       curve: Curves.easeInOut,
                       decoration: BoxDecoration(
-                        color: isSelected
-                            ? primaryColor
-                            : isDark
-                            ? colorBlack
-                            : colorWhite,
+                        color: isSelected ? primaryColor : colorWhite,
                         border: Border.all(
                           color: isSelected
                               ? primaryColor
-                              : isDark
-                              ? primaryColor.withValues(alpha: 0.3)
                               : primaryColor.withValues(alpha: 0.2),
                           width: 1,
                         ),

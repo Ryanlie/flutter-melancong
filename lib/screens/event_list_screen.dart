@@ -28,11 +28,10 @@ class _EventListPageState extends State<EventListPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = colorPink;
-    final bgColor = isDark ? colorBlack : colorWhite;
-    final surfaceColor = isDark ? colorBlackLighter : Colors.white;
-    final textColor = isDark ? colorWhite : colorBlack;
+    final bgColor = colorWhite;
+    final surfaceColor = Colors.white;
+    final textColor = colorBlack;
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -77,7 +76,7 @@ class _EventListPageState extends State<EventListPage> {
                   return SizedBox(width: 12.0);
                 },
                 itemBuilder: (context, index) {
-                  return _chipBuilder(context, index, primaryColor, isDark);
+                  return _chipBuilder(context, index, primaryColor);
                 },
               ),
             ),
@@ -133,12 +132,7 @@ class _EventListPageState extends State<EventListPage> {
     }
   }
 
-  Widget _chipBuilder(
-    BuildContext context,
-    int index,
-    Color primaryColor,
-    bool isDark,
-  ) {
+  Widget _chipBuilder(BuildContext context, int index, Color primaryColor) {
     {
       String category = interestList.elementAt(index);
       bool isSelected = selectedCategory == category;
@@ -160,8 +154,6 @@ class _EventListPageState extends State<EventListPage> {
           decoration: BoxDecoration(
             color: isSelected
                 ? primaryColor
-                : isDark
-                ? primaryColor.withValues(alpha: 0.2)
                 : primaryColor.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(20),
           ),

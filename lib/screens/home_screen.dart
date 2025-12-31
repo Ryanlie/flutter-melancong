@@ -17,12 +17,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = colorPink;
-    final bgColor = isDark ? colorBlack : colorWhite;
-    final surfaceColor = isDark ? colorBlackLighter : Colors.white;
-    final textColor = isDark ? colorWhite : colorBlack;
-    final interested = eventList.where((e) => global.interests.contains(e['category'])).toList();
+    final bgColor = colorWhite;
+    final surfaceColor = Colors.white;
+    final textColor = colorBlack;
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -161,7 +159,11 @@ class _HomeScreenState extends State<HomeScreen> {
                             width: 80,
                             margin: const EdgeInsets.only(right: 16),
                             child: GestureDetector(
-                              onTap: () => Navigator.pushNamed(context, '/events', arguments: category['label']),
+                              onTap: () => Navigator.pushNamed(
+                                context,
+                                '/events',
+                                arguments: category['label'],
+                              ),
                               child: Column(
                                 children: [
                                   Container(
@@ -198,11 +200,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
                     const SizedBox(height: 32),
 
-                    // Popular Events
+                    // Interested Events
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Text(
-                        'Popular Events',
+                        'Interested Events',
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
@@ -226,9 +228,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             '/event-detail',
                             arguments: event,
                           ),
-                          // onTap: () {
-                          //   Navigator.pushNamed(context, '/event-detail');
-                          // },
                           child: Container(
                             margin: const EdgeInsets.only(bottom: 16),
                             decoration: BoxDecoration(

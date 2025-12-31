@@ -20,207 +20,200 @@ class _EventDetailPageState extends State<EventDetailPage> {
   Widget build(BuildContext context) {
     final event =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = colorPink;
-    final bgColor = isDark ? colorBlack : colorWhite;
-    final textColor = isDark ? colorWhite : colorBlack;
+    final bgColor = colorWhite;
+    final textColor = colorBlack;
 
     return ValueListenableBuilder(
       valueListenable: global.rsvpList,
       builder: (context, value, child) => Scaffold(
-      backgroundColor: bgColor,
-      body: Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Header Image with Buttons
-                  Stack(
-                    children: [
-                      Container(
-                        height: 300,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: NetworkImage(event['image']),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      SafeArea(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: isDark
-                                      ? primaryColor.withValues(alpha: 0.2)
-                                      : primaryColor.withValues(alpha: 0.1),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.arrow_back,
-                                    color: isDark ? Colors.white : textColor,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  color: isDark
-                                      ? primaryColor.withValues(alpha: 0.2)
-                                      : primaryColor.withValues(alpha: 0.1),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: IconButton(
-                                  icon: Icon(
-                                    Icons.share,
-                                    color: isDark ? Colors.white : textColor,
-                                  ),
-                                  onPressed: () {
-                                    print('Share button pressed');
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
-                  // Event Details
-                  Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+        backgroundColor: bgColor,
+        body: Column(
+          children: [
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Header Image with Buttons
+                    Stack(
                       children: [
-                        Text(
-                          event['title'],
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: textColor,
+                        Container(
+                          height: 300,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(event['image']),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                        const SizedBox(height: 16),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.calendar_month,
-                              color: primaryColor,
-                              size: 20,
+                        SafeArea(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: primaryColor.withValues(alpha: 0.1),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: IconButton(
+                                    icon: Icon(
+                                      Icons.arrow_back,
+                                      color: textColor,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: primaryColor.withValues(alpha: 0.1),
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: IconButton(
+                                    icon: Icon(Icons.share, color: textColor),
+                                    onPressed: () {
+                                      print('Share button pressed');
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                            const SizedBox(width: 12),
-                            Text(
-                              event['date'],
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: textColor.withValues(alpha: 0.8),
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
-                        const SizedBox(height: 12),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.location_on,
-                              color: primaryColor,
-                              size: 20,
+                      ],
+                    ),
+
+                    // Event Details
+                    Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            event['title'],
+                            style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                              color: textColor,
                             ),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Text(
-                                event['location'],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.calendar_month,
+                                color: primaryColor,
+                                size: 20,
+                              ),
+                              const SizedBox(width: 12),
+                              Text(
+                                event['date'],
                                 style: TextStyle(
                                   fontSize: 16,
                                   color: textColor.withValues(alpha: 0.8),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 24),
-                        Text(
-                          event['description'],
-                          style: TextStyle(
-                            fontSize: 16,
-                            height: 1.6,
-                            color: textColor,
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  // Action Buttons
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: rsvpButton(
-                            event,
-                            context,
-                            primaryColor,
-                            value.contains(event),
-                            isDark,
-                            value,
-                          ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: OutlinedButton(
-                            onPressed: () {
-                              print('Add to Calendar pressed');
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('Added to Calendar!'),
-                                  duration: Duration(seconds: 2),
+                          const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.location_on,
+                                color: primaryColor,
+                                size: 20,
+                              ),
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Text(
+                                  event['location'],
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: textColor.withValues(alpha: 0.8),
+                                  ),
                                 ),
-                              );
-                            },
-                            style: OutlinedButton.styleFrom(
-                              foregroundColor: primaryColor,
-                              backgroundColor: isDark
-                                  ? primaryColor.withValues(alpha: 0.2)
-                                  : primaryColor.withValues(alpha: 0.1),
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              side: BorderSide.none,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(28),
                               ),
+                            ],
+                          ),
+                          const SizedBox(height: 24),
+                          Text(
+                            event['description'],
+                            style: TextStyle(
+                              fontSize: 16,
+                              height: 1.6,
+                              color: textColor,
                             ),
-                            child: const Text(
-                              'Add to Calendar',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // Action Buttons
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: rsvpButton(
+                              event,
+                              context,
+                              primaryColor,
+                              value.contains(event),
+                              value,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: OutlinedButton(
+                              onPressed: () {
+                                print('Add to Calendar pressed');
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Added to Calendar!'),
+                                    duration: Duration(seconds: 2),
+                                  ),
+                                );
+                              },
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: primaryColor,
+                                backgroundColor: primaryColor.withValues(
+                                  alpha: 0.1,
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 16,
+                                ),
+                                side: BorderSide.none,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(28),
+                                ),
+                              ),
+                              child: const Text(
+                                'Add to Calendar',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 32),
-                ],
+                    const SizedBox(height: 32),
+                  ],
+                ),
               ),
             ),
-          ),
 
-          // Bottom Navigation
-          BottomNavBar(current: selectedNavIndex),
-        ],
+            // Bottom Navigation
+            BottomNavBar(current: selectedNavIndex),
+          ],
+        ),
       ),
-    ),
     );
   }
 
@@ -229,7 +222,6 @@ class _EventDetailPageState extends State<EventDetailPage> {
     BuildContext context,
     Color primaryColor,
     bool contained,
-    bool isDark,
     Set<Map<String, dynamic>> value,
   ) {
     return ElevatedButton(
@@ -261,9 +253,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
       style: contained
           ? ElevatedButton.styleFrom(
               foregroundColor: primaryColor,
-              backgroundColor: isDark
-                  ? primaryColor.withAlpha(51) // Using withAlpha for clarity
-                  : primaryColor.withAlpha(26),
+              backgroundColor: primaryColor.withAlpha(26),
               padding: const EdgeInsets.symmetric(vertical: 16),
               side: BorderSide.none,
               shape: RoundedRectangleBorder(

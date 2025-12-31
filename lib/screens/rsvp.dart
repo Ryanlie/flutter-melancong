@@ -25,10 +25,9 @@ class _RsvpPageState extends State<RsvpPage> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    final bgColor = isDark ? colorBlack : colorWhite;
-    final surfaceColor = isDark ? colorBlackLighter : Colors.white;
-    final textColor = isDark ? colorWhite : colorBlack;
+    final bgColor = colorWhite;
+    final surfaceColor = Colors.white;
+    final textColor = colorBlack;
 
     return ValueListenableBuilder(
       valueListenable: global.rsvpList,

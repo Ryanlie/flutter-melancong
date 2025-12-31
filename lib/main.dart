@@ -28,13 +28,6 @@ class MelancongApp extends StatelessWidget {
         fontFamily: 'Plus Jakarta Sans',
         brightness: Brightness.light,
       ),
-      darkTheme: ThemeData(
-        primaryColor: colorPink,
-        scaffoldBackgroundColor: colorBlack,
-        fontFamily: 'Plus Jakarta Sans',
-        brightness: Brightness.dark,
-      ),
-      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {

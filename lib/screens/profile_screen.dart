@@ -17,17 +17,15 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   String selectedNavIndex = '/profile';
   bool notificationsEnabled = true;
-  bool darkModeEnabled = false;
 
   final Set<String> savedInterests = global.interests;
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = colorPink;
-    final bgColor = isDark ? colorBlack : colorWhite;
-    final surfaceColor = isDark ? colorBlackLighter : Colors.white;
-    final textColor = isDark ? colorWhite : colorBlack;
+    final bgColor = colorWhite;
+    final surfaceColor = Colors.white;
+    final textColor = colorBlack;
 
     return Scaffold(
       backgroundColor: bgColor,

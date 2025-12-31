@@ -12,22 +12,17 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = colorPink;
-    final textColor = isDark ? colorWhite : colorBlack;
+    final textColor = colorBlack;
 
     return Container(
       decoration: BoxDecoration(
         color:
             overrideBg ??
-            (isDark
-                ? colorBlack.withValues(alpha: 0.9)
-                : colorWhite.withValues(alpha: 0.9)),
+            (colorWhite.withValues(alpha: 0.9)),
         border: Border(
           top: BorderSide(
-            color: isDark
-                ? primaryColor.withValues(alpha: 0.3)
-                : primaryColor.withValues(alpha: 0.2),
+            color: primaryColor.withValues(alpha: 0.2),
             width: 1,
           ),
         ),
