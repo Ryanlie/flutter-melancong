@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:fluterproject/consts.dart';
+import 'package:fluterproject/global.dart' as global;
 import 'package:fluterproject/widgets/bottom_nav_bar.dart';
 
-// ==================== PAGE 3: EVENT DETAIL ====================
 class EventDetailPage extends StatefulWidget {
   const EventDetailPage({super.key});
 
@@ -18,14 +18,16 @@ class _EventDetailPageState extends State<EventDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> event =
+    final event =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final primaryColor = colorPink;
     final bgColor = isDark ? colorBlack : colorWhite;
     final textColor = isDark ? colorWhite : colorBlack;
 
-    return Scaffold(
+    return ValueListenableBuilder(
+      valueListenable: global.rsvpList,
+      builder: (context, value, child) => Scaffold(
       backgroundColor: bgColor,
       body: Column(
         children: [
@@ -164,34 +166,13 @@ class _EventDetailPageState extends State<EventDetailPage> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              print('RSVP button pressed');
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text('RSVP Confirmed!'),
-                                  backgroundColor: Color(0xFFf25aa6),
-                                  duration: Duration(seconds: 2),
-                                ),
-                              );
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: primaryColor,
-                              foregroundColor: Colors.white,
-                              padding: const EdgeInsets.symmetric(vertical: 16),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(28),
-                              ),
-                              elevation: 8,
-                              shadowColor: primaryColor.withValues(alpha: 0.3),
-                            ),
-                            child: const Text(
-                              'RSVP',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                          child: rsvpButton(
+                            event,
+                            context,
+                            primaryColor,
+                            value.contains(event),
+                            isDark,
+                            value,
                           ),
                         ),
                         const SizedBox(width: 12),
@@ -238,6 +219,70 @@ class _EventDetailPageState extends State<EventDetailPage> {
           // Bottom Navigation
           BottomNavBar(current: selectedNavIndex),
         ],
+      ),
+    ),
+    );
+  }
+
+  ElevatedButton rsvpButton(
+    Map<String, dynamic> event,
+    BuildContext context,
+    Color primaryColor,
+    bool contained,
+    bool isDark,
+    Set<Map<String, dynamic>> value,
+  ) {
+    return ElevatedButton(
+      onPressed: () {
+        print('RSVP button pressed');
+        final newRsvpSet = Set<Map<String, dynamic>>.from(value);
+        if (contained) {
+          newRsvpSet.remove(event);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('RSVP Cancelled!'),
+              backgroundColor: Colors.redAccent,
+              // Changed for better user feedback
+              duration: Duration(seconds: 2),
+            ),
+          );
+        } else {
+          newRsvpSet.add(event);
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('RSVP Confirmed!'),
+              backgroundColor: Color(0xFFf25aa6),
+              duration: Duration(seconds: 2),
+            ),
+          );
+        }
+        global.rsvpList.value = newRsvpSet;
+      },
+      style: contained
+          ? ElevatedButton.styleFrom(
+              foregroundColor: primaryColor,
+              backgroundColor: isDark
+                  ? primaryColor.withAlpha(51) // Using withAlpha for clarity
+                  : primaryColor.withAlpha(26),
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              side: BorderSide.none,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(28),
+              ),
+            )
+          : ElevatedButton.styleFrom(
+              backgroundColor: primaryColor,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(28),
+              ),
+              elevation: 8,
+              shadowColor: primaryColor.withAlpha(77),
+            ),
+      child: Text(
+        contained ? 'Cancel RSVP' : 'RSVP',
+        style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
       ),
     );
   }

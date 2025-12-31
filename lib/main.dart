@@ -1,4 +1,5 @@
 // Flutter imports:
+import 'package:fluterproject/screens/rsvp.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
@@ -43,6 +44,7 @@ class MelancongApp extends StatelessWidget {
         '/events': (context) => const EventListPage(),
         '/event-detail': (context) => const EventDetailPage(),
         '/profile': (context) => const ProfileScreen(),
+        '/rsvp': (context) => const RsvpPage(),
       },
     );
   }

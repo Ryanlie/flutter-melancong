@@ -55,6 +55,14 @@ class BottomNavBar extends StatelessWidget {
                 context,
               ),
               _buildNavItem(
+                Icons.edit_calendar,
+                'RSVP',
+                '/rsvp',
+                primaryColor,
+                textColor,
+                context,
+              ),
+              _buildNavItem(
                 Icons.person,
                 'Profile',
                 '/profile',
