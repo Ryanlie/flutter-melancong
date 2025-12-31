@@ -1,9 +1,9 @@
 // Flutter imports:
-import 'package:fluterproject/screens/rsvp.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:fluterproject/consts.dart';
+import 'package:fluterproject/screens/rsvp.dart';
 import 'screens/event_detail_screen.dart';
 import 'screens/event_list_screen.dart';
 import 'screens/home_screen.dart';

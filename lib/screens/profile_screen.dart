@@ -1,11 +1,10 @@
 // Flutter imports:
-import 'package:fluterproject/widgets/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 
 // Project imports:
 import 'package:fluterproject/consts.dart';
 import 'package:fluterproject/global.dart' as global;
-
+import 'package:fluterproject/widgets/bottom_nav_bar.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});

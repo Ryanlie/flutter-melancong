@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 // Project imports:
 import 'package:fluterproject/consts.dart';
 import 'package:fluterproject/widgets/bottom_nav_bar.dart';
+import 'package:fluterproject/fetch.dart' as fetch;
 
 class EventListPage extends StatefulWidget {
   const EventListPage({super.key});
@@ -15,6 +16,17 @@ class EventListPage extends StatefulWidget {
 class _EventListPageState extends State<EventListPage> {
   String? selectedCategory;
   String selectedNavIndex = '/events';
+
+  late Future<List<Map<String, String>>> _eventList;
+  final data = fetch.Data();
+
+  @override
+  void initState() {
+    super.initState();
+    // Fetch data when widget initializes
+
+    _eventList = data.data;
+  }
 
   void _navigateToDetail(event) {
     Navigator.pushNamed(context, '/event-detail', arguments: event);
@@ -33,63 +45,79 @@ class _EventListPageState extends State<EventListPage> {
     final surfaceColor = Colors.white;
     final textColor = colorBlack;
 
-    return Scaffold(
-      backgroundColor: bgColor,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Header
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(color: bgColor.withValues(alpha: 0.8)),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const SizedBox(width: 40),
-                  Text(
-                    'Events',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
-                    ),
+    return FutureBuilder(
+      future: _eventList,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.hasError) {
+          return Center(child: Text('Error: ${snapshot.error}'));
+        }
+
+        final eventList = snapshot.data!;
+        return Scaffold(
+          backgroundColor: bgColor,
+          body: SafeArea(
+            child: Column(
+              children: [
+                // Header
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: bgColor.withValues(alpha: 0.8),
                   ),
-                  IconButton(
-                    icon: Icon(Icons.search, color: textColor),
-                    onPressed: () {
-                      print('Search pressed');
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const SizedBox(width: 40),
+                      Text(
+                        'Events',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: textColor,
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.search, color: textColor),
+                        onPressed: () {
+                          print('Search pressed');
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+
+                // Categories
+                Container(
+                  height: 50,
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    itemCount: interestList.length,
+                    separatorBuilder: (_, _) {
+                      return SizedBox(width: 12.0);
+                    },
+                    itemBuilder: (context, index) {
+                      return _chipBuilder(context, index, primaryColor);
                     },
                   ),
-                ],
-              ),
-            ),
+                ),
 
-            // Categories
-            Container(
-              height: 50,
-              padding: EdgeInsets.symmetric(vertical: 8),
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                itemCount: interestList.length,
-                separatorBuilder: (_, _) {
-                  return SizedBox(width: 12.0);
-                },
-                itemBuilder: (context, index) {
-                  return _chipBuilder(context, index, primaryColor);
-                },
-              ),
+                buildList(textColor, surfaceColor, eventList),
+              ],
             ),
-
-            buildList(textColor, surfaceColor),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavBar(current: selectedNavIndex),
+          ),
+          bottomNavigationBar: BottomNavBar(current: selectedNavIndex),
+        );
+      },
     );
   }
 
-  Expanded buildList(Color textColor, Color surfaceColor) {
+  Expanded buildList(Color textColor, Color surfaceColor, eventList) {
     var filtered = eventList.where(
       (event) => selectedCategory == null
           ? true
